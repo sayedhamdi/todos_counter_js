@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Counter</title>
+        <script>
+            
+            
+            function count(){
+                let counter = localStorage.getItem("counter");
+                counter++;
+                document.querySelector("h1").innerHTML="Counter : "+counter;
+                localStorage.setItem("counter",counter)
+            }
+
+            document.addEventListener('DOMContentLoaded',function(){
+                let counter = 0
+                if(localStorage.getItem("counter")){
+                    let counter = localStorage.getItem("counter") 
+                }
+                
+                document.querySelector("h1").innerHTML = "Counter :"+counter
+                document.querySelector("button").addEventListener("click",count)
+                document.querySelector("#reset").onclick = ()=>{
+                    localStorage.setItem("counter",0);
+                    document.querySelector("h1").innerHTML = "Counter :"+0
+                }
+            })
+            
+        </script>
+
+    </head>
+    <body>
+        <h1>Counter : 0</h1>
+
+
+        <button >Add</button>
+        <button id="reset">reset</button>
+    </body>
+</html>

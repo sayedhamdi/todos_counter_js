@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todo list</title>
+        <script>
+            
+            document.addEventListener("DOMContentLoaded", ()=>{
+                let todos = loadTodos()
+                console.log(todos)
+                /** desactiver le boutton submit */
+                document.querySelector("#submit").disabled = true
+                document.querySelector("#todo").onkeyup = ()=>{
+                    console.log(document.querySelector("#todo").value.length)
+                    if(document.querySelector("#todo").value.length>0){
+                        document.querySelector("#submit").disabled = false
+                    }else{
+                        document.querySelector("#submit").disabled = true
+                    }
+                }
+                /* form submit event*/
+                document.querySelector("form").onsubmit = (e)=>{
+                    e.preventDefault()
+                    const itemValue = document.querySelector("#todo").value
+                    const li = document.createElement("li");
+                    li.innerHTML = itemValue
+                    document.querySelector("#todos").appendChild(li)
+                    document.querySelector("#todo").value = ""
+                    todos.push(itemValue)
+                    localStorage.setItem("todos",JSON.stringify(todos))
+                    return false
+                }
+            })
+            function loadTodos(){
+                var todos = [] 
+                if (localStorage.getItem("todos")){
+                    todos = JSON.parse(localStorage.getItem("todos"))
+                }
+                for (let i = 0;i< todos.length; i++){
+                    let li = document.createElement("li")
+                    li.innerHTML = todos[i]
+                    document.querySelector("#todos").appendChild(li)
+                }
+                return todos
+            }
+        </script>
+    </head>
+    <body>
+        <h1>Todo's</h1>
+        <form id="form">
+            <input type="text" name="todo" id="todo"/>
+            <input type="submit" id="submit" value="submit" />
+        </form>
+        <ul id="todos">
+           
+        </ul>
+    </body>
+</html>
